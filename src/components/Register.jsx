@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const Register = () => {
     const GoogleSignup = () =>{
         const provider = new GoogleAuthProvider();
-        signUWithPopup(auth,provider).then(async(result)=>{
+        signInWithPopup(auth,provider).then(async(result)=>{
             console.log(result);
             if(result.user){
                 toast.success("User logged in successfully",{position:"top-center",});
