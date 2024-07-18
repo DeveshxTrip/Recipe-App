@@ -18,7 +18,7 @@ const Login = () => {
   <div className="bg-gray-200 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
     {/* form */}
     <div className="md:w-1/2 px-8 md:px-16">
-      <h2 className="font-bold text-2xl text-[#002D74]">Login</h2>
+      <h2 className="font-bold text-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-transparent bg-clip-text">Login</h2>
       <p className="text-xs mt-4 text-[#002D74]">
         If you are not a member, register first
       </p>

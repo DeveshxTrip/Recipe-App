@@ -2,12 +2,17 @@ import React from 'react'
 import Img from '../assets/img2.jpg'
 import { auth } from '../Firebase.config';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const GoogleSignup = () =>{
         const provider = new GoogleAuthProvider();
         signUWithPopup(auth,provider).then(async(result)=>{
             console.log(result);
+            if(result.user){
+                toast.success("User logged in successfully",{position:"top-center",});
+                window.location.href = "/Recipe";
+            }
 
         })
     }
@@ -17,7 +22,7 @@ const Register = () => {
   <div className="bg-gray-200 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
     {/* form */}
     <div className="md:w-1/2 px-8 md:px-16">
-      <h2 className="font-bold text-2xl text-[#002D74]">Register</h2>
+      <h2 className="font-bold text-2xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-transparent bg-clip-text">Register</h2>
       <p className="text-xs mt-4 text-[#002D74]">
         If you are already a member, easily log in
       </p>
