@@ -1,13 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Img from '../assets/img.jpg'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from 'firebase/auth'
 import { auth } from '../Firebase.config'
+import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+
+    const handleLogin = async(e)=>{
+        e.preventDefault();
+        try{
+            await signInWithEmailAndPassword(auth,email,password);
+            console.log("user logged in successfully")
+            const user = auth.currentUser;
+            if(user){
+              
+                window.location.href = "/Home";
+            }
+            console.log("user registered successfully");
+        } catch (err){
+            console.log(err.message);
+            toast.error(err.message,{
+                position:"top-center",
+            });
+        }
+    }
     const GoogleSignin = () =>{
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth,provider).then(async(result)=>{
             console.log(result);
+            if(result.user){
+                toast.success("User logged in successfully",{position:"top-center",});
+                window.location.href = "/Recipe";
+            }
 
         })
 
@@ -22,12 +49,15 @@ const Login = () => {
       <p className="text-xs mt-4 text-[#002D74]">
         If you are not a member, register first
       </p>
-      <form action="" className="flex flex-col gap-4">
+      <form action="" onSubmit={handleLogin} className="flex flex-col gap-4">
         <input
           className="p-2 mt-8 rounded-xl border"
           type="email"
           name="email"
           placeholder="Email"
+          required
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
         <div className="relative">
           <input
@@ -35,6 +65,9 @@ const Login = () => {
             type="password"
             name="password"
             placeholder="Password"
+            required
+            value={password}
+          onChange={(e)=>setPassword(e.target.value)}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -83,14 +116,16 @@ const Login = () => {
         </svg>
         Login with Google
       </button>
-      <div className="mt-5 text-xs border-b border-[#002D74] py-4 text-[#002D74]">
+      {/* <div className="mt-5 text-xs border-b border-[#002D74] py-4 text-[#002D74]">
         <a href="#">Forgot your password?</a>
-      </div>
-      <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
+      </div> */}
+      <div className="mt-8 text-xs flex justify-between items-center text-[#002D74]">
         <p>Don't have an account?</p>
+        <Link to="/">
         <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
           Register
         </button>
+        </Link>
       </div>
     </div>
     {/* image */}

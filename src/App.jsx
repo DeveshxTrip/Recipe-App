@@ -1,8 +1,11 @@
 import React from 'react'
 import Login from './components/Login'
 import Register from './components/Register'
-import Recipe from './components/Recipe'
+import Recipe from './components/AddRecipe'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import Search from './components/Search'
 
 
 const App = () => {
@@ -13,7 +16,10 @@ const App = () => {
    <Routes>
     <Route path='/' element={<Register/>}/>
     <Route path='/Login' element={<Login/>}/>
-    <Route path='/Home' element={<Recipe/>}/>
+    <Route path='/Recipe' element={<Recipe/>}/>
+    <Route path='/Navbar' element={<Navbar/>}/>
+    <Route path='/Home' element={<Home/>}/>
+    <Route path='/Search' element={<Search/>}/>
    </Routes>
    </>
    </BrowserRouter>

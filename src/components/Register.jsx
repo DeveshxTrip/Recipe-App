@@ -1,10 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Img from '../assets/img2.jpg'
-import { auth } from '../Firebase.config';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth,db} from '../Firebase.config';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import { setDoc,doc } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
+    const [name, setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+
+    const handleRegister = async(e)=>{
+        e.preventDefault();
+        try{
+            await createUserWithEmailAndPassword(auth,email,password)
+            const user = auth.currentUser;
+            console.log(user)
+            if(user){
+              
+                window.location.href = "/Home";
+            }
+            console.log("user registered successfully");
+        } catch(err){
+            console.log(err.message);
+
+        }
+    }
     const GoogleSignup = () =>{
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth,provider).then(async(result)=>{
@@ -17,7 +39,7 @@ const Register = () => {
         })
     }
   return (
-    <section className="bg-gray-40 min-h-screen flex items-center justify-center">
+    <div className="bg-gray-40 min-h-screen flex items-center justify-center">
   {/* login container */}
   <div className="bg-gray-200 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
     {/* form */}
@@ -26,32 +48,36 @@ const Register = () => {
       <p className="text-xs mt-4 text-[#002D74]">
         If you are already a member, easily log in
       </p>
-      <form action="" className="flex flex-col gap-4">
+      <form action="" onSubmit={handleRegister} className="flex flex-col gap-4">
       <input
           className="p-2 mt-8 rounded-xl border"
           type="Name"
           name="Name"
           placeholder="Name"
+          required
+          value={name}
+          onChange={(e)=>setName(e.target.value)}
         />
         <input
           className="p-2 rounded-xl border"
           type="email"
           name="email"
+          required
           placeholder="Email"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
         <div className="relative">
           <input
             className="p-2 rounded-xl border w-full"
             type="password"
             name="password"
+            required
             placeholder="Create Password"
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
           />
-          <input
-            className="p-2 mt-4 rounded-xl border w-full"
-            type="password"
-            name="password"
-            placeholder="Confirm Password"
-          />
+          
           {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             width={16}
@@ -65,7 +91,7 @@ const Register = () => {
           </svg> */}
         </div>
         <button className="bg-gradient-to-br from-purple-600 to-blue-500 rounded-xl text-white py-2 hover:scale-105 duration-300">
-          Login
+          Register
         </button>
       </form>
       <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
@@ -108,6 +134,14 @@ const Register = () => {
           Register
         </button>
       </div> */}
+      <div className="mt-8 text-xs flex justify-between items-center text-[#002D74]">
+        <p>Don't have an account?</p>
+        <Link to="/Login">
+        <button className="py-2 px-7 bg-white border rounded-xl hover:scale-110 duration-300">
+          Login
+        </button>
+        </Link>
+      </div>
     </div>
     {/* image */}
     <div className="md:block hidden w-1/2">
@@ -117,7 +151,7 @@ const Register = () => {
       />
     </div>
   </div>
-</section>
+</div>
 
   )
 }
