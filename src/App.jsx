@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Search from './components/Search'
+import Cards from './components/Cards'
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
     <Route path='/Navbar' element={<Navbar/>}/>
     <Route path='/Home' element={<Home/>}/>
     <Route path='/Search' element={<Search/>}/>
+    <Route path='/cards' element={<Cards/>}/>
    </Routes>
    </>
    </BrowserRouter>

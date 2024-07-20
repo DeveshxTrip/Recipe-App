@@ -1,21 +1,38 @@
-import React from 'react'
-import { auth } from '../Firebase.config'
-import { signOut } from 'firebase/auth'
+import React, { useState } from 'react'
+import { auth, db } from '../Firebase.config'
+
 import Video from '../assets/cooking.mp4'
 import Navbar from './Navbar'
 import { toast } from 'react-toastify'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 
 const Recipe = () => {
-  // const Logout = async() =>{
-  //   try{
-  //     await signOut(auth);
-  //     window.location.href="/Login";
-  //     console.log("User Logged Out Successfully")
-  //   } catch(err){
-  //     toast.error(err.message)
-  //     console.log(err.message)
-  //   }
-  // }
+  const [username,setUsername] = useState("");
+  const [recipe,setRecipe] = useState("");
+  const [date,setDate] = useState("");
+  const [instructions,setInstructions] = useState("");
+  const [steps,setSteps] = useState("");
+
+  const data = collection(db,"Recipe")
+
+  const handleSubmit = async(e)=>{
+ 
+    try{
+      e.preventDefault();
+      await setDoc(doc(data), {
+        name: username,
+        recipe: recipe,
+        date:date,
+        instructions:instructions,
+        steps:steps,
+      });
+  toast.success("data sent")
+  console.log("data sent successfully")
+} catch(err){
+  console.log(err.message)
+}
+  }
+  
     
     
   return (
@@ -35,13 +52,16 @@ const Recipe = () => {
     <h1 className="text-xl font-bold capitalize text-black">
       ADD Recipe
     </h1>
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
         <div>
           <label className="text-white text-xl dark:text-gray-900" htmlFor="username">
             Username
           </label>
           <input
+            value={username}
+            required
+            onChange={(e)=>setUsername(e.target.value)}
             id="username"
             type="text"
             className="block w-full px-4 py-2 mt-2 border rounded-md dark:bg-transparent dark:text-gray-900 focus:border-[#f38ba8] dark:focus:border-[#f38ba8] focus:outline-none"
@@ -54,6 +74,9 @@ const Recipe = () => {
             Recipe Name
           </label>
           <input
+          value={recipe}
+          required
+          onChange={(e)=>setRecipe(e.target.value)}
             type="name"
             className="block w-full px-4 py-2 mt-2 border rounded-md dark:bg-transparent dark:text-gray-900 focus:border-[#f38ba8] dark:focus:border-[#f38ba8] focus:outline-none"
           />
@@ -66,6 +89,9 @@ const Recipe = () => {
           </label>
           <input
             id="date"
+            required
+            value={date}
+            onChange={(e)=>setDate(e.target.value)}
             type="date"
             className="block w-full px-4 py-2 mt-2 border rounded-md bg-transparent lg:text-gray-900 text-white focus:border-[#f38ba8] dark:focus:border-[#f38ba8] focus:outline-none"
           />
@@ -76,10 +102,12 @@ const Recipe = () => {
           >
             Instructions
           </label>
-          <textarea
+          <input
+          value={instructions}
+          required
+          onChange={(e)=>setInstructions(e.target.value)}
             type="text"
             className="block w-full px-4 py-2 mt-2 border rounded-md dark:bg-transparent lg:text-gray-900 text-white focus:border-[#f38ba8] dark:focus:border-[#f38ba8] focus:outline-none"
-            defaultValue={""}
           />
         </div>
         <div>
@@ -89,10 +117,12 @@ const Recipe = () => {
           >
             Steps
           </label>
-          <textarea
+          <input
+          value={steps}
+          required
+          onChange={(e)=>setSteps(e.target.value)}
             type="steps"
             className="block w-full px-4 py-2 mt-2 border rounded-md dark:bg-transparent dark:text-white focus:border-[#f38ba8] dark:focus:border-[#f38ba8] focus:outline-none"
-            defaultValue={""}
           />
         </div>
         <div>
