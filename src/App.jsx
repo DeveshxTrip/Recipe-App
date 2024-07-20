@@ -1,7 +1,7 @@
 import React from 'react'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Recipe from './pages/AddRecipe'
+import Recipe from './pages/Recipe'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
