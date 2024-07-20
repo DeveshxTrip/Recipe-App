@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar'
 import { toast } from 'react-toastify'
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 
-const Recipe = () => {
+const Recipe = () => {[]
   const [username,setUsername] = useState("");
   const [recipe,setRecipe] = useState("");
   const [date,setDate] = useState("");
