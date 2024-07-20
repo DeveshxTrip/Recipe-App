@@ -6,7 +6,7 @@ import { BiSearch } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { NavLink } from 'react-router-dom';
-import Home from './Home';
+import Home from '../pages/Home';
 
 
 const Navbar = () => {

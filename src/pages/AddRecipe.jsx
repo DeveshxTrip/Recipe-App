@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { auth, db } from '../Firebase.config'
 
 import Video from '../assets/cooking.mp4'
-import Navbar from './Navbar'
+import Navbar from '../components/Navbar'
 import { toast } from 'react-toastify'
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 

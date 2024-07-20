@@ -1,11 +1,11 @@
 import React from 'react'
-import Login from './components/Login'
-import Register from './components/Register'
-import Recipe from './components/AddRecipe'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Recipe from './pages/AddRecipe'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Search from './components/Search'
+import Home from './pages/Home'
+import Search from './pages/Search'
 import Cards from './components/Cards'
 
 
