@@ -34,7 +34,7 @@ Throughout this project, I have gained valuable experience and knowledge in the 
 
 1. Clone the GitHub repository:
     ```bash
-    git clone https://github.com/deveshxtrip/recipe-app.git
+    git clone https://github.com/DeveshxTrip/Recipe-App.git
     ```
 
 2. Navigate to the project directory:
